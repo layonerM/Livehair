@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shampoo Natural - AntiCaída & AntiCaspa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Carga de fuentes y AOS -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Carga de GSAP (una vez) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+  <!-- AOS JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  
+  <!-- Animate.css -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  
+  <!-- Three.js (para efectos 3D) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+
+.whatsapp-btn {
+    background-color: #25D366; /* Color verde de WhatsApp */
+    color: white; /* Texto blanco */
+    border-radius: 50px; /* Bordes redondeados */
+    padding: 14px 32px; /* Espaciado interno más grande */
+    font-size: 1.125rem; /* Tamaño de fuente */
+    font-weight: 700; /* Texto más grueso */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    display: inline-flex; /* Flexbox para alinear íconos y texto */
+    align-items: center; /* Centrado del contenido */
+    justify-content: center; /* Centrado del contenido */
+    gap: 10px; /* Espacio entre el ícono y el texto */
+    transition: all 0.3s ease; /* Transición suave */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+    margin-top: 10px;
+  }
+
+  .whatsapp-btn:hover {
+    background-color: #128C7E; /* Color oscuro al pasar el mouse */
+    transform: scale(1.05) translateY(-3px); /* Efecto de expansión y desplazamiento */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Aumenta la sombra al hacer hover */
+  }
+
+  .whatsapp-btn svg {
+    width: 24px; /* Tamaño más grande para el ícono */
+    height: 24px;
+  }
+
+  .whatsapp-btn:active {
+    transform: scale(1); /* Vuelve al tamaño normal al hacer clic */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Vuelve la sombra al estado normal */
+  }
+
+  .whatsapp-btn span {
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* Sombra de texto para darle profundidad */
+  }
+  @keyframes logo-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Estilo para animación del logo */
+.animate-logo-fade-in {
+  animation: logo-fade-in 1.5s ease-out;
+}
+
+/* Animación de escala suave */
+@keyframes logo-scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Aplicar animación de escala con un retraso */
+.animate-logo-scale {
+  animation: logo-scale 1s ease-out infinite;
+}
+
+/* Animación de deslizamiento para el texto */
+@keyframes text-slide {
+  0% {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(5px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animación sutil de cambio de color para el texto */
+@keyframes text-color-shift {
+  0% {
+    color: #48a9a6; /* Suave tono teal */
+  }
+  50% {
+    color: #4fa3d1; /* Tono suave de azul claro */
+  }
+  100% {
+    color: #48a9a6; /* Vuelve al tono original */
+  }
+}
+
+/* Aplicar deslizamiento y cambio de color al texto */
+.animate-text-shift {
+  animation: text-slide 2s ease-in-out infinite, text-color-shift 6s ease-in-out infinite;
+}
+
+/* Animación de gradiente en el texto */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Aplicar animación de gradiente al texto */
+.text-gradient {
+  background: linear-gradient(to right, #00bcd4, #007bb5, #4fa3d1);
+  background-size: 200% 200%;
+  color: transparent;
+  -webkit-background-clip: text;
+  animation: gradient-shift 3s ease-in-out infinite;
+}
+
+/* Animación para resaltar palabras clave como "Anti caída" y "anti caspa" */
+@keyframes highlight {
+  0% {
+    color: #34d399; /* Verde para anti caída */
+    text-shadow: 0px 0px 8px rgba(52, 211, 153, 1), 0px 0px 20px rgba(52, 211, 153, 0.6);
+  }
+  50% {
+    color: #f87171; /* Rojo suave para anti caspa */
+    text-shadow: 0px 0px 8px rgba(248, 113, 113, 1), 0px 0px 20px rgba(248, 113, 113, 0.6);
+  }
+  100% {
+    color: #34d399; /* Regresa al verde */
+    text-shadow: 0px 0px 8px rgba(52, 211, 153, 1), 0px 0px 20px rgba(52, 211, 153, 0.6);
+  }
+}
+
+/* Animar las palabras clave */
+.animate-highlight {
+  animation: highlight 2s ease-in-out infinite;
+}
+
+/* Delineado en el texto con sombra */
+.text-shadow-lg {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0px 0px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Fuente Roboto Slab */
+.font-roboto-slab {
+      font-family: 'Roboto Slab', serif;
+    }
+
+
+    @keyframes buttonMove {
+  0% {
+    transform: translateX(0) scale(1);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.4);
+  }
+  25% {
+    transform: translateX(10px) scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.5);
+  }
+  50% {
+    transform: translateX(-10px) scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.5);
+  }
+  75% {
+    transform: translateX(10px) scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.5);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.4);
+  }
+}
+
+/* Apply the pulse and move animation */
+#animatedButton {
+  animation: buttonMove 3s ease-in-out infinite;
+}
+
+
+
+@keyframes image-bounce {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+#animatedImage {
+  animation: image-bounce 3s ease-in-out infinite;
+}
+
+
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes float-slow {
+  0%   { transform: translateY(0px) rotate(0deg); }
+  50%  { transform: translateY(-6px) rotate(3deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes rotate-slow {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes scale-pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce-slow {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 12s linear infinite;
+}
+
+.animate-scale-pulse {
+  animation: scale-pulse 5s ease-in-out infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+
+@keyframes float-glow-scale {
+  0% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 0px rgba(0, 255, 255, 0));
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.6));
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 0px rgba(0, 255, 255, 0));
+  }
+}
+
+.animate-float-glow-scale {
+  animation: float-glow-scale 4s ease-in-out infinite;
+}
+@media (max-width: 650px) {
+    .responsive-section {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .whatsapp-button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      width: 80%;
+      justify-content: center;
+      margin: 0 auto;
+      border: #007bb5;
+    }
+  }
+
+  @keyframes pulse-glow {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0px rgba(34,197,94, 0.4);
+    }
+    50% {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(34,197,94, 0.6);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0px rgba(34,197,94, 0.4);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+
+  @keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer-blue {
+  background: linear-gradient(90deg, rgba(59,130,246,0.2) 0%, rgba(14,165,233,0.6) 50%, rgba(59,130,246,0.2) 100%);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shimmer 4s linear infinite;
+  -webkit-text-stroke: 1px #000; /* Delineado negro */
+  text-stroke: 1px #000;
+}
+
+@keyframes subtleZoom {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+.animate-subtle-zoom {
+  animation: subtleZoom 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes pulseSlow {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+  }
+
+  .animate-pulseSlow {
+    animation: pulseSlow 3s ease-in-out infinite;
+  }
+
+
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  .animate-floatUp {
+    animation: floatUp 4s ease-in-out infinite;
+  }
+
+
+  .whatsapp-button-fixed {
+    position: fixed;
+    bottom: 20px; /* Posición en la parte inferior */
+    right: 20px; /* Posición a la derecha */
+    z-index: 1000; /* Asegura que el botón esté encima de otros elementos */
+    transition: all 0.3s ease; /* Transición suave para los cambios */
+  }
+
+  /* Estilos del nuevo botón */
+  .whatsapp-button-fixed a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #25D366; /* Color WhatsApp */
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 12px 24px;
+    border-radius: 50px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+    transition: transform 0.3s ease-in-out; /* Transición para el tamaño */
+    transform: scale(1); /* Tamaño inicial */
+  }
+
+  /* Animación para reducir el tamaño cuando el usuario hace scroll */
+  .whatsapp-button-fixed.shrink a {
+    transform: scale(0.8); /* Reducir tamaño */
+    padding: 8px 16px; /* Ajuste de padding cuando se reduce el tamaño */
+  }
+
+  /* Efecto de hover para agrandar el botón */
+  .whatsapp-button-fixed a:hover {
+    background-color: #128C7E; /* Color más oscuro en hover */
+    transform: scale(1.1); /* Expande el botón en hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Sombra más fuerte */
+  }
+
+  /* Ícono de WhatsApp */
+  .whatsapp-button-fixed a svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px; /* Separar el ícono del texto */
+  }
+
+  /* Animación de texto */
+  .whatsapp-button-fixed a span {
+    animation: textGlow 1.5s ease-in-out infinite alternate;
+  }
+
+  /* Animación de resplandor del texto */
+  @keyframes textGlow {
+    0% {
+      text-shadow: 0 0 10px #25D366, 0 0 20px #25D366, 0 0 30px #25D366;
+    }
+    100% {
+      text-shadow: 0 0 20px #128C7E, 0 0 30px #128C7E, 0 0 40px #128C7E;
+    }
+  }
+
+  @keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scale-in 1s ease-out both;
+}
+@media (max-width: 400px) {
+    .text-custom-xs {
+      font-size: 1.25rem; /* equivalente a text-xl */
+    }
+  }
+  @keyframes slide-horizontal {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
+  }
+
+  .animate-slide-horizontal {
+    animation: slide-horizontal 2.5s ease-in-out infinite;
+  }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[#e0f7fa] via-[#cce5df] to-[#f1f8e9] text-gray-900 min-h-screen">
+
+  <section class="mt-12">
+    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between responsive-section">
+  
+      <!-- Nombre de la empresa -->
+      <div class="flex items-center space-x-2">
+        <span class="text-5xl md:text-6xl font-extrabold font-['Roboto Slab'] text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-600 tracking-wider leading-tight animate-logo-fade-in drop-shadow-[4px_4px_6px_rgba(0,0,0,0.4)] text-stroke-2 text-stroke-white">
+          LIVEHAIR
+        </span>
+      </div>
+  
+      <!-- Botón de WhatsApp -->
+      <div class="flex whatsapp-button-container justify-center mt-4">
+        <a href="https://wa.me/+573186244636" target="_blank"
+           class="whatsapp-button inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 animate-pulse-glow border border-black">
+  
+          <!-- Icono WhatsApp -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+               class="w-5 h-5 text-white">
+            <path d="M20.52 3.48A11.83 11.83 0 0012.04 0 11.89 11.89 0 000 11.9a11.9 11.9 0 001.6 5.92L0 24l6.33-1.66a11.93 11.93 0 005.72 1.45h.05A11.9 11.9 0 0024 12.01a11.88 11.88 0 00-3.48-8.53zM12.1 21.5a9.4 9.4 0 01-4.79-1.28l-.34-.2-3.75.98 1-3.65-.24-.37A9.37 9.37 0 012.67 12a9.4 9.4 0 0115.94-6.65 9.4 9.4 0 01-6.51 16.15zm5.34-7.45c-.29-.14-1.7-.84-1.96-.94s-.45-.14-.64.14-.73.94-.9 1.14-.33.21-.62.07a7.62 7.62 0 01-2.25-1.38 8.48 8.48 0 01-1.58-1.93c-.16-.28-.02-.43.12-.57.12-.12.28-.31.41-.46s.18-.25.28-.41a.5.5 0 000-.48c-.08-.14-.64-1.54-.87-2.12s-.47-.52-.64-.53l-.54-.01a1.05 1.05 0 00-.76.35c-.26.28-1 1-.98 2.43a9.05 9.05 0 002.35 5.1 10.6 10.6 0 004.7 3.27c.66.22 1.26.19 1.74.12.53-.08 1.7-.69 1.95-1.36s.24-1.24.17-1.36-.27-.19-.56-.33z"/>
+          </svg>
+  
+          <span>Contactar por WhatsApp</span>
+        </a>
+      </div>
+    </div>
+    <div class="whatsapp-button-fixed">
+      <a href="https://wa.me/+573186244636" target="_blank">
+        <!-- Ícono WhatsApp -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5 text-white">
+          <path d="M20.52 3.48A11.83 11.83 0 0012.04 0 11.89 11.89 0 000 11.9a11.9 11.9 0 001.6 5.92L0 24l6.33-1.66a11.93 11.93 0 005.72 1.45h.05A11.9 11.9 0 0024 12.01a11.88 11.88 0 00-3.48-8.53zM12.1 21.5a9.4 9.4 0 01-4.79-1.28l-.34-.2-3.75.98 1-3.65-.24-.37A9.37 9.37 0 012.67 12a9.4 9.4 0 0115.94-6.65 9.4 9.4 0 01-6.51 16.15zm5.34-7.45c-.29-.14-1.7-.84-1.96-.94s-.45-.14-.64.14-.73.94-.9 1.14-.33.21-.62.07a7.62 7.62 0 01-2.25-1.38 8.48 8.48 0 01-1.58-1.93c-.16-.28-.02-.43.12-.57.12-.12.28-.31.41-.46s.18-.25.28-.41a.5.5 0 000-.48c-.08-.14-.64-1.54-.87-2.12s-.47-.52-.64-.53l-.54-.01a1.05 1.05 0 00-.76.35c-.26.28-1 1-.98 2.43a9.05 9.05 0 002.35 5.1 10.6 10.6 0 004.7 3.27c.66.22 1.26.19 1.74.12.53-.08 1.7-.69 1.95-1.36s.24-1.24.17-1.36-.27-.19-.56-.33z"/>
+        </svg>
+   
+      </a>
+    </div>
+  </section>
+  <section class="relative overflow-hidden max-w-7xl mx-auto px-6 py-32 flex flex-col lg:flex-row items-center justify-between gap-16 font-['Poppins']">
+
+    <!-- Contenedor del contenido (más grande y resaltado) -->
+    <div class="relative z-10 w-full lg:w-7/12 p-12 rounded-[3rem] bg-[#d4e1da] bg-opacity-80 backdrop-blur-xl shadow-2xl space-y-12 border border-[#b8c5ba] animate-fade-in mb-16">
+  
+      <!-- Título con sombra y borde -->
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-blue-800 tracking-tight leading-tight drop-shadow-[2px_2px_2px_rgba(0,0,0,0.4)] border-b-4 border-black pb-4 relative">
+        
+        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-sky-400 to-indigo-500 drop-shadow-[1px_1px_1px_rgba(0,0,0,0.6)] animate-text-shift">
+          <span class="text-teal-500">Cabello</span> Hidratado,
+        </span>
+        <span class="text-sky-600 drop-shadow-[1px_1px_1px_rgba(0,0,0,0.5)] animate-text-shift">
+          <span class="text-indigo-600">Belleza</span> Natural.
+        </span>
+      </h1>
+      
+      <p class="text-lg md:text-xl lg:text-2xl text-gray-800/90 font-medium leading-relaxed relative font-['Roboto Slab']">
+        Revive tu cabello con nuestro 
+        <span class="text-blue-700 font-semibold text-shadow-lg">shampoo 100% natural</span>, 
+        elaborado con romero, menta y aloe vera. Limpieza profunda, frescura intensa y un brillo saludable. 🌿
+        <span class="text-emerald-600 font-semibold text-shadow-lg animate-highlight">Anti caída</span> y 
+        <span class="text-rose-500 font-semibold text-shadow-lg animate-highlight">anti caspa</span>, para un cuidado completo.
+      </p>
+      
+      <!-- Botón con borde negro y sombras -->
+      <div>
+        <a href="https://wa.me/+573186244636" id="animatedButton" class="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-blue-700 hover:to-sky-600 text-white text-xl font-bold py-4 px-14 rounded-full border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,0.6)] hover:scale-105 transition-all duration-300 tracking-wide animate-pulse inline-block">
+          🌟 ¡Probar ahora!
+        </a>
+      </div>
+    </div>
+  
+    <div class="relative z-10 w-full lg:w-5/12 flex justify-center items-center">
+
+      <img 
+      src="./img/shampoo.png" 
+      alt="Decorativo" 
+      class="absolute top-0 left-4 w-16 md:w-20 animate-float-glow-scale"
+    />
+    
+    
+    <!-- SVG/PNG flotando arriba a la derecha -->
+    <img 
+      src="./img/shampoo.png" 
+      alt="Decorativo" 
+      class="absolute top-2 right-6 w-14 md:w-18 animate-rotate-slow"
+    />
+    
+    <!-- SVG/PNG flotando abajo a la izquierda -->
+    <img 
+      src="./img/mujer.png" 
+      alt="Decorativo" 
+      class="absolute bottom-4 left-10 w-20 md:w-24 animate-scale-pulse"
+    />
+    
+    <!-- SVG/PNG flotando abajo a la derecha -->
+    <img 
+      src="./img/champu.png" 
+      alt="Decorativo" 
+      class="absolute bottom-2 right-10 w-16 md:w-20 animate-float"
+    />
+    
+      <!-- Imagen principal del shampoo -->
+      <img 
+        src="./img/logo2.png" 
+        alt="Shampoo LiveHair"
+        id="animatedImage"
+        class="w-[90%] md:w-[80%] lg:w-[90%] max-w-full object-contain transition-opacity duration-1000 opacity-100 animate-bounce-slow"
+      />
+    </div>
+  
+  </section>
+  
+  
+
+  <section >
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl md:text-6xl font-extrabold text-center tracking-wide uppercase font-['Poppins'] leading-tight animate-subtle-zoom drop-shadow-lg">
+        Beneficios de usar <br>
+        <span class="animate-shimmer-blue font-['Roboto Slab']">
+          Shampoo LiveHair
+        </span>
+      </h2>
+  
+        
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
+    <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-100">
+      <div class="flex items-center justify-center mb-4">
+        <img src="./img/champu2.png" alt="Hidratación" class="w-16 h-16">
+      </div>
+      <h3 class="text-2xl font-semibold text-green-700 text-center mb-4 tracking-wide leading-tight text-shadow-md">Hidratación Profunda</h3>
+      <p class="text-gray-700 text-center leading-relaxed text-lg">Su fórmula avanzada penetra hasta la raíz, nutriendo el cuero cabelludo y evitando la resequedad. Ideal para cabello maltratado o expuesto al sol.</p>
+    </div>
+    
+    <!-- Tarjeta 2 -->
+    <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-100">
+      <div class="flex items-center justify-center mb-4">
+        <img src="./img/dermatologia.png" alt="Fortalecimiento" class="w-16 h-16">
+      </div>
+      <h3 class="text-2xl font-semibold text-green-700 text-center mb-4 tracking-wide leading-tight text-shadow-md">Fortalecimiento del Cabello</h3>
+      <p class="text-gray-700 text-center leading-relaxed text-lg">Enriquecido con biotina y keratina natural, reduce la caída del cabello, mejora la estructura de cada hebra y previene la rotura.</p>
+    </div>
+    
+    <!-- Tarjeta 3 -->
+    <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-100">
+      <div class="flex items-center justify-center mb-4">
+        <img src="./img/corte-de-pelo.png" alt="Brillo y suavidad" class="w-16 h-16">
+      </div>
+      <h3 class="text-2xl font-semibold text-green-700 text-center mb-4 tracking-wide leading-tight text-shadow-md">Brillo y Suavidad Natural</h3>
+      <p class="text-gray-700 text-center leading-relaxed text-lg">Devuelve el brillo perdido por procesos químicos o tintes, dejando tu cabello sedoso, manejable y con aspecto saludable.</p>
+    </div>
+    
+    <!-- Tarjeta 4 -->
+    <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-100">
+      <div class="flex items-center justify-center mb-4">
+        <img src="./img/jabon.png" alt="Anticaspa" class="w-16 h-16">
+      </div>
+      <h3 class="text-2xl font-semibold text-green-700 text-center mb-4 tracking-wide leading-tight text-shadow-md">Controla la Caspa y la Irritación</h3>
+      <p class="text-gray-700 text-center leading-relaxed text-lg">Gracias a su composición natural con extractos botánicos, combate la caspa desde la raíz y alivia el picor sin resecar el cuero cabelludo.</p>
+    </div>
+    
+    <!-- Tarjeta 5 -->
+    <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-100">
+      <div class="flex items-center justify-center mb-4">
+        <img src="./img/hombre.png" alt="Crecimiento acelerado" class="w-16 h-16">
+      </div>
+      <h3 class="text-2xl font-semibold text-green-700 text-center mb-4 tracking-wide leading-tight text-shadow-md">Estimula el Crecimiento</h3>
+      <p class="text-gray-700 text-center leading-relaxed text-lg">Activa los folículos capilares para acelerar el crecimiento del cabello. Notarás resultados visibles desde las primeras semanas de uso.</p>
+    </div>
+    
+    <!-- Tarjeta 6 -->
+    <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition duration-300 border border-gray-100">
+      <div class="flex items-center justify-center mb-4">
+        <img src="./img/pelo-largo.png" alt="Natural" class="w-16 h-16">
+      </div>
+      <h3 class="text-2xl font-semibold text-green-700 text-center mb-4 tracking-wide leading-tight text-shadow-md">100% Natural y Libre de Químicos</h3>
+      <p class="text-gray-700 text-center leading-relaxed text-lg">Sin sulfatos, sin parabenos, ni siliconas. Ideal para todo tipo de cabello, incluso en niños o personas con cuero cabelludo sensible.</p>
+    </div>
+      
+    </div>
+  </section>
+  <section class="mt-20 py-12 px-4 sm:px-8 lg:px-16">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-4xl sm:text-5xl font-black text-gray-900 leading-tight tracking-tight mb-6 animate-fade-in-up" style="font-family: 'Poppins', sans-serif; text-shadow: 1px 1px 2px rgba(0,0,0,0.08);">
+        ✨ Resultados Reales que Hablan por Sí Solos
+      </h2>
+      
+      <p class="text-[1.125rem] sm:text-lg leading-relaxed text-gray-700 max-w-3xl mx-auto animate-fade-in-up delay-200" style="font-family: 'Open Sans', sans-serif;">
+        Conoce la historia de un cliente que confió en <span class="font-bold text-emerald-600">LiveHair</span>. 
+        Gracias a nuestra fórmula enriquecida con ingredientes naturales de alta potencia, 
+        <span class="italic">el cabello volvió a crecer</span> en zonas donde antes parecía imposible.
+        <br class="hidden sm:block"><br class="hidden sm:block">
+        Esto no es magia, es ciencia natural aplicada con pasión por el bienestar capilar.
+      </p>
+      
+  
+      <!-- Imagen antes y después -->
+      <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 max-w-3xl mx-auto animate-scale-in">
+        <img href="https://wa.me/+573186244636" src="./img/WhatsApp Image 2025-05-14 at 11.25.34 PM.jpeg" alt="Antes y Después del tratamiento capilar" class="w-full h-auto object-cover">
+      </div>
+  
+      <!-- Descripción profesional -->
+      <div class="mt-8 text-gray-700 text-base leading-relaxed max-w-3xl mx-auto">
+        <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4" style="font-family: 'Open Sans', sans-serif;">
+          Este caso es una prueba real del <span class="font-semibold text-emerald-600">poder regenerador de LiveHair</span>. 
+          El paciente presentaba <span class="font-medium text-gray-800">alopecia localizada</span>, con ausencia visible de folículos activos en la zona afectada.
+        </p>
+        
+        <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4" style="font-family: 'Open Sans', sans-serif;">
+          Tras aplicar el producto de forma constante, gracias a su fórmula avanzada con 
+          <span class="font-semibold text-gray-800">romero, aloe vera, árbol de té y biotina</span>, 
+          se logró estimular el crecimiento capilar, fortaleciendo la raíz y mejorando significativamente la densidad del cabello.
+        </p>
+        
+        <p class="text-base sm:text-lg font-semibold text-gray-900 leading-relaxed" style="font-family: 'Open Sans', sans-serif;">
+          La constancia, combinada con ingredientes naturales de alta calidad, es la clave para devolverle vida, fuerza y vitalidad a tu cabello.
+        </p>
+        
+      </div>
+    </div>
+  </section>
+  
+  
+
+  <!-- DESCRIPCIÓN FINAL -->
+  <section class="bg-gradient-to-r from-yellow-500 via-blue-500 to-blue-700 max-w-5xl mx-auto mt-12 rounded-3xl border border-blue-700 shadow-2xl p-12 text-center transform hover:scale-105 transition-all duration-300 ease-in-out">
+    <h2 class="text-5xl font-extrabold text-white mb-8 animate__animated animate__pulse animate__infinite animate__slow text-shadow-lg leading-tight">
+      Una Fórmula Inspirada en la Naturaleza
+    </h2>
+    
+    <p class="text-[1.25rem] max-w-3xl mx-auto mb-10 px-6 py-6 rounded-3xl font-extrabold leading-relaxed tracking-wide text-white bg-white/5 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.3)] backdrop-blur-lg transition-transform duration-500 hover:scale-[1.04] hover:-translate-y-1 text-shadow-md hover:text-shadow-xl">
+      <span class="text-yellow-400 drop-shadow-[0_2px_2px_rgba(0,0,0,0.4)]">En el corazón de Colombia</span>, en la cálida ciudad de 
+      <span class="text-blue-300 drop-shadow-[0_2px_2px_rgba(0,0,0,0.4)]">Valledupar</span>, nació un producto único que combina lo mejor de la naturaleza y la tradición. Hecho con pasión y dedicación, el 
+      <span class="text-yellow-300 drop-shadow-[0_2px_2px_rgba(0,0,0,0.4)]">Shampoo LiveHair</span> es el resultado de años de investigación y trabajo en equipo de expertos colombianos. Cada ingrediente es seleccionado cuidadosamente para garantizar que tu cabello reciba lo mejor de la 
+      <span class="text-emerald-300 drop-shadow-[0_2px_2px_rgba(0,0,0,0.4)]">cosmética natural</span>, completamente libre de químicos dañinos.
+    </p>
+    
+    <!-- Párrafo Llamado a la Acción -->
+    <p class="text-xl text-white font-semibold mb-8 animate__animated animate__fadeIn animate__delay-2s text-shadow-lg leading-relaxed max-w-2xl mx-auto">
+      🌿 <span class="text-yellow-400 font-bold">¡Prueba nuestro shampoo AntiCaída, AntiCaspa y descubre la diferencia real de la cosmética natural!</span>
+    </p>
+    <!-- Bandera de Colombia con animación de entrada -->
+    <div class="flex justify-center items-center gap-6 mb-10 p-6 bg-white/5 backdrop-blur-md rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.3)] animate__animated animate__fadeInUp animate__delay-2s transition-transform hover:scale-105">
+      <!-- Bandera con mayor tamaño y mejor forma -->
+      <img src="./img/bandera.png" 
+      alt="Bandera de Colombia"
+      class="w-44 h-28 object-cover rounded-2xl shadow-2xl ring-4 ring-white/10 transition-transform duration-500 hover:scale-110 animate-slide-horizontal">
+ 
+    
+      <span class="text-2xl sm:text-4xl font-black text-white tracking-wide drop-shadow-[0_3px_3px_rgba(0,0,0,0.6)] hover:drop-shadow-[0_5px_5px_rgba(0,0,0,0.7)] transition-all duration-500">
+        Hecho en Valledupar Cesar 🇨🇴
+      </span>
+      
+    </div>
+    
+    <!-- Producto -->
+    <div class="flex flex-col md:flex-row items-center justify-center gap-10 bg-white/10 p-10 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.3)] backdrop-blur-xl animate__animated animate__fadeInUp animate__slow relative overflow-hidden group">
+
+      <!-- Imagen del producto con animación flotante -->
+      <div class="relative animate-float">
+        <img src="./img/shampoo.png" alt="Shampoo LiveHair" class="w-72 h-auto rounded-2xl shadow-2xl transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1">
+        <div class="absolute top-0 left-0 w-full h-full rounded-2xl ring-4 ring-white/20 animate-pulse"></div>
+      </div>
+    
+      <!-- Sección de texto -->
+      <div class="text-white max-w-xl">
+    
+        <!-- Título con delineado y sombra -->
+        <h3 id="tituloAnimado" class="text-4xl font-extrabold mb-6 leading-tight tracking-tight text-white animate-pulseSlow transition duration-1000 ease-in-out" style="
+        text-shadow: 2px 2px 6px rgba(0,0,0,0.8), -1px -1px 0 #facc15, 1px 1px 0 #facc15;">
+        Belleza que Nace de la Tierra Colombiana
+      </h3>
+      
+        <!-- Párrafo con texto claro, sombra y animación -->
+        <p class="text-[1.125rem] font-semibold leading-relaxed tracking-wide text-white opacity-90 hover:opacity-100 transition duration-500 animate__animated animate__fadeInUp animate__delay-1s animate-floatUp">
+          Nuestra fórmula está enriquecida con ingredientes naturales como
+          <span class="font-extrabold text-emerald-300"> aloe vera, romero, menta y árbol de té</span>,
+          todos cultivados con orgullo en tierras fértiles de Colombia.
+          <br><br>
+          <span class="text-yellow-300 font-bold">LiveHair</span> no solo fortalece y revitaliza tu cabello, sino que lo cuida desde la raíz.
+          Con su uso regular, notarás un cabello más brillante, suave y lleno de vida natural.
+        </p>
+        
+        
+          <a href="https://wa.me/+573186244636" class="whatsapp-btn">
+          <!-- Icono de WhatsApp (usando FontAwesome) -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-whatsapp">
+            <path d="M22 2.5l-1.5 1.5-2-2-1.5 1.5 2 2-2 2 1.5 1.5 2-2 1.5 1.5-2 2L22 2.5zM8.3 19.8a10.3 10.3 0 0 1-5.9-5.9c-.3-.7-.5-1.5-.5-2.3 0-1.7 1-3.5 2.7-4.1 1.6-.6 3.5-.2 4.7 1.1.8.9 1.4 2 1.8 3.2.3 1.3.4 2.7-.4 3.8-.9 1.3-2.4 1.8-3.8 1.3-.6-.3-1.1-.8-1.7-1.3-.9-.6-1.3-1.5-1.3-2.5-.1-1-.7-2-1.6-2.5-1.4-.8-3.3-.7-4.6.4-1.1.7-1.5 1.9-1.2 3.1-.1.1-.2.2-.3.2-.2-.1-.3-.3-.5-.5-.6-.8-.8-1.7-.7-2.7.3-2.1 1.3-3.8 3.3-4.1 2.1-.3 4.4 1 5.4 3.1 1.2 2.4.9 5.5-1.2 7.3-1.4 1.4-3.4 1.8-5.2 1.3z" />
+          </svg>
+          Comprar
+        </a>
+    
+      </div>
+  </section>
+  
+
+  <!-- FOOTER -->
+  <footer class="text-center py-10 text-sm text-gray-500">
+    © 2025 Shampoo Natural. Inspirado en la Tierra, creado para ti.
+  </footer>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+  window.addEventListener('scroll', function() {
+    const buttonFixed = document.querySelector('.whatsapp-button-fixed');
+    
+    if (window.scrollY > 100) {
+      buttonFixed.classList.add('shrink'); // Reducir el tamaño del botón
+    } else {
+      buttonFixed.classList.remove('shrink'); // Volver al tamaño original
+    }
+  });
+document.addEventListener('DOMContentLoaded', function () {
+    const logo = document.querySelector('.animate-logo-fade-in');
+    
+    // Añadir una animación más dinámica de aparición con escala
+    setTimeout(() => {
+      logo.classList.add('animate-logo-scale');
+    }, 100);
+  });
+  const titulo = document.getElementById("tituloAnimado");
+  
+  // Ejemplo: activar una clase extra al pasar el mouse
+  titulo.addEventListener("mouseenter", () => {
+    titulo.classList.add("scale-105");
+  });
+
+  titulo.addEventListener("mouseleave", () => {
+    titulo.classList.remove("scale-105");
+  });
+  
+  
+
+  </script>
+
+</body>
+</html>
